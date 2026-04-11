@@ -1,0 +1,31 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.wsuo
+
+# Visual C++ cache / DB
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.VC.opendb
+Browse.VC.db*
+CodeChunks.db*
+SemanticSymbols.db*
+
+# IntelliSense / precompiled cache
+ipch/
+*.ipch
+
+# Build folders
+Debug/
+Release/
+x64/
+x86/
+Win32/
+out/
+build/
+[Bb]in/
+[Oo]bj/
