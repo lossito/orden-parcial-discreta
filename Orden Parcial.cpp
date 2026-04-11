@@ -23,7 +23,9 @@ int main() {
 				break;
 			}
 			case 3: {
-				cout << "contactofidel.ucv.edu.pe\n";
+				for (int i = 0; i < 9999; i++) {
+					cout << "contactofidel.ucv.edu.pe\n";
+				}
 				break;
 			}
 			default: {
