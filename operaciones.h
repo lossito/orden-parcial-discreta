@@ -12,9 +12,9 @@ vector<int> generarDivisores(int n) {
     return divisores;
 }
 
-vector<int> crearSubconjunto(int n, vector<int> divisores) {}
+//vector<int> crearSubconjunto(int n, vector<int> divisores) {}
 
-int imprimirDivisores(int n, vector<int> divisores) {
+void imprimirDivisores(int n, vector<int> divisores) {
     cout << "D = { ";
     for (int i = 1; i <= n; i++) {
         cout << divisores[i] << " ; ";
