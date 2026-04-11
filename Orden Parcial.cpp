@@ -8,6 +8,7 @@ int main() {
 		cout << "--Bienvenido al mvp del tb1--\n";
 		cout << "1. Empezar orden parcial\n";
 		cout << "2. Salir\n";
+		cout << "3. Contactanos en:\n";
 		cout << "Opcion: ";
 		cin >> opc;
 		switch (opc) {
