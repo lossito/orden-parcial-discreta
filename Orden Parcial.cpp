@@ -3,6 +3,7 @@ int main() {
 	int opc = 0;
 	while (opc != 2)
 	{
+		cout << "hola soy poma123";
 		cout << "v143\n";
 		cout << "--Bienvenido al mvp del tb1--\n";
 		cout << "1. Empezar orden parcial\n";
