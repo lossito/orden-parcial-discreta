@@ -29,3 +29,13 @@ out/
 build/
 [Bb]in/
 [Oo]bj/
+
+# Build files
+*.obj
+*.ilk
+*.pdb
+*.exe
+*.log
+*.tlog
+*.lastbuildstate
+*.recipe
