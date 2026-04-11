@@ -22,6 +22,10 @@ int main() {
 			case 2: {
 				break;
 			}
+			case 3: {
+				cout << "contactofidel.ucv.edu.pe\n";
+				break;
+			}
 			default: {
 				cout << "Opcion no valida\n";
 				break;
