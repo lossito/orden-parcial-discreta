@@ -28,7 +28,7 @@ int main() {
 				break;
 			}
 			default: {
-				cout << "Opcion no valida\n";
+				cout << "Opcion no validaa\n";
 				break;
 			}
 
