@@ -17,6 +17,10 @@ int main() {
 				cin >> n;
 				vector<int> aux = generarDivisores(n);
 				imprimirDivisores(aux);
+				vector<int> A = crearSubconjunto(aux);
+				imprimirSubconjunto(A);
+
+				relacionDivisibilidad(A);
 				_getch();
 				cout << "\n";
 				break;
