@@ -16,9 +16,16 @@ int main() {
 				cout << "Ingrese un numero entero: ";
 				cin >> n;
 				vector<int> aux = generarDivisores(n);
-				imprimirDivisores(aux);
+				imprimirDivisores(aux, n);
 				vector<int> A = crearSubconjunto(aux);
 				imprimirSubconjunto(A);
+				imprimirMatrizRelacion(A);
+
+				if (verificarReflexiva(A)) {
+					cout << "El subconjunto A es reflexiva ya que la diagonal son puros 1" << endl;
+					cout << "__________________" << endl;
+				} 
+				else cout << "El subconjunto A no es reflexiva" << endl;
 
 				relacionDivisibilidad(A);
 				_getch();
