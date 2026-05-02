@@ -36,11 +36,12 @@ int main() {
 
 			imprimirMatrizRelacion(A);
 			
-
+			_getch();
 			
-
+			system("cls");
 			propiedadesOrdenParcial(A);
 			mostrarHasse(A);
+			imprimirMatrizRelacionTranspuesta(A);
 			_getch();
 
 			cout << "\n";
