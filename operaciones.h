@@ -80,6 +80,7 @@ void imprimirMatrizRelacion(vector<int> A) {
     cout << "\n";
 }
 
+// CORREGIDO: colorea los 1s que NO son de la diagonal (los que se transpusieron)
 void imprimirMatrizRelacionTranspuesta(vector<int> A) {
     cout << "\nMatriz Transpuesta M^T:\n";
     cout << setw(5) << " ";
@@ -93,8 +94,16 @@ void imprimirMatrizRelacionTranspuesta(vector<int> A) {
         cout << "\n" << setw(3) << A[i] << " |";
         for (int j = 0; j < (int)A.size(); j++) {
             if (A[j] != 0 && A[i] % A[j] == 0) {
-                if (i == j) { establecer_color(5); cout << setw(4) << "1"; establecer_color(7); }
-                else cout << setw(4) << "1";
+                if (i == j) {
+                    // diagonal: sin color especial
+                    cout << setw(4) << "1";
+                }
+                else {
+                    // fuera de diagonal: color para resaltar la transposicion
+                    establecer_color(5);
+                    cout << setw(4) << "1";
+                    establecer_color(7);
+                }
             }
             else {
                 cout << setw(4) << "0";
@@ -133,7 +142,7 @@ void mostrarMatrizCuadrada(vector<int> A) {
             cout << setw(4) << M2[i][j];
     }
 
-    // verificar transitividad :v
+    // verificar transitividad
     cout << "\n\nVerificacion de transitividad:\n";
     bool transitiva = true;
     for (int i = 0; i < n; i++)
@@ -146,6 +155,9 @@ void mostrarMatrizCuadrada(vector<int> A) {
     else
         cout << "=> M2 NO contenida en M -> NO es transitiva\n";
 }
+
+// Forward declaration para que propiedadesOrdenParcial pueda llamarla
+void mostrarHasse(vector<int> A);
 
 bool verificarReflexiva(vector<int> A) {
     for (int i = 0; i < (int)A.size(); i++)
@@ -212,7 +224,7 @@ void propiedadesOrdenParcial(vector<int> A) {
     // --- 2. ANTISIMETRICA ---
     cout << "2. RELACION ANTISIMETRICA\n";
     cout << "R es antisimetrica si cuando (a,b)\n";
-    cout << "esta en R, entonces (a,b) no esta, a menos que a = b.\n\n";
+    cout << "esta en R, entonces (b,a) no esta, a menos que a = b.\n\n";
 
     bool antisim = true;
     for (int i = 0; i < n; i++) {
@@ -231,6 +243,7 @@ void propiedadesOrdenParcial(vector<int> A) {
     if (antisim) { establecer_color(10); cout << "=> La relacion ES antisimetrica.\n"; establecer_color(7); }
     else { establecer_color(4);  cout << "=> La relacion NO es antisimetrica.\n"; establecer_color(7); }
 
+    // Matriz Transpuesta - CORREGIDO: colorear fuera de diagonal
     cout << "\nMatriz Transpuesta M^T:\n";
     cout << setw(5) << " ";
     for (int i = 0; i < n; i++) cout << setw(4) << A[i];
@@ -241,8 +254,16 @@ void propiedadesOrdenParcial(vector<int> A) {
         cout << setw(3) << A[i] << " |";
         for (int j = 0; j < n; j++) {
             if (MT[i][j] == 1) {
-                if (i == j) { establecer_color(5); cout << setw(4) << "1"; establecer_color(7); }
-                else cout << setw(4) << "1";
+                if (i == j) {
+                    // diagonal: sin color
+                    cout << setw(4) << "1";
+                }
+                else {
+                    // fuera de diagonal: color para ver la transposicion
+                    establecer_color(5);
+                    cout << setw(4) << "1";
+                    establecer_color(7);
+                }
             }
             else cout << setw(4) << "0";
         }
@@ -291,6 +312,11 @@ void propiedadesOrdenParcial(vector<int> A) {
     cout << "4. ORDEN PARCIAL\n";
     cout << "Como cumple reflexividad, antisimetria y transitividad,\n";
     cout << "la relacion de divisibilidad ES un orden parcial.\n\n";
+
+    cout << "Presiona una tecla para ver el Diagrama de Hasse...\n";
+    _getch();
+
+    mostrarHasse(A);
 }
 
 bool hayIntermedio(int a, int b, vector<int> A) {
@@ -303,17 +329,111 @@ bool hayIntermedio(int a, int b, vector<int> A) {
     return false;
 }
 
+// NUEVO: muestra paso a paso M1, M2, M3 y luego el diagrama de Hasse
 void mostrarHasse(vector<int> A) {
-    cout << "\nDiagrama de Hasse:\n";
-    for (int i = 0; i < (int)A.size(); i++)
-        for (int j = 0; j < (int)A.size(); j++)
-            if (A[i] != A[j] && A[j] % A[i] == 0)
-                if (!hayIntermedio(A[i], A[j], A))
-                    cout << A[i] << " ------- " << A[j] << "\n";
+    int n = A.size();
+
+    // --- M (original con reflexividad) ---
+    vector<vector<int>> M(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (A[j] % A[i] == 0)
+                M[i][j] = 1;
+
+    // --- M1: M sin la diagonal (quitar reflexividad) ---
+    vector<vector<int>> M1(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (i != j)
+                M1[i][j] = M[i][j];
+
+    // --- M2: M1 x M1 (composicion) ---
+    vector<vector<int>> M2(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            for (int k = 0; k < n; k++)
+                if (M1[i][k] == 1 && M1[k][j] == 1)
+                    M2[i][j] = 1;
+
+    // --- M3: M1 - M2 (borrar los pares transitivos) ---
+    vector<vector<int>> M3(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (M1[i][j] == 1 && M2[i][j] == 0)
+                M3[i][j] = 1;
+
+    // Helper lambda para imprimir una matriz
+    auto imprimirMatriz = [&](const string& titulo, const string& desc, vector<vector<int>>& Mat, int colorUno) {
+        cout << titulo << "\n";
+        cout << desc << "\n\n";
+        cout << setw(5) << " ";
+        for (int i = 0; i < n; i++) cout << setw(4) << A[i];
+        cout << "\n    ";
+        for (int i = 0; i < n * 4; i++) cout << "-";
+        cout << "\n";
+        for (int i = 0; i < n; i++) {
+            cout << setw(3) << A[i] << " |";
+            for (int j = 0; j < n; j++) {
+                if (Mat[i][j] == 1) {
+                    establecer_color(colorUno);
+                    cout << setw(4) << "1";
+                    establecer_color(7);
+                }
+                else cout << setw(4) << "0";
+            }
+            cout << "\n";
+        }
+        cout << "\n";
+        };
+
+    system("cls");
+    cout << "========== DIAGRAMA DE HASSE (paso a paso) ==========\n\n";
+
+    // Mostrar M1
+    imprimirMatriz(
+        "Paso 1 - Matriz M1 (sin reflexividad):",
+        "Se eliminan los pares (a,a) de la diagonal (relacion irreflexiva).",
+        M1, 3
+    );
+
+    // Mostrar M2
+    imprimirMatriz(
+        "Paso 2 - Matriz M2 = M1 x M1 (composicion):",
+        "Detecta las relaciones cubiertas por un paso intermedio.",
+        M2, 5
+    );
+
+    // Mostrar M3
+    imprimirMatriz(
+        "Paso 3 - Matriz M3 = M1 - M2 (aristas directas):",
+        "Solo quedan los pares directos sin intermediarios: estas son las aristas del Hasse.",
+        M3, 10
+    );
+
+    // Diagrama de Hasse
+    cout << "========== DIAGRAMA DE HASSE ==========\n";
+    cout << "Relaciones directas (sin intermediarios), a ------- b:\n\n";
+    bool hayArista = false;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (M3[i][j] == 1) {
+                establecer_color(10);
+                cout << "  " << A[i];
+                establecer_color(7);
+                cout << " ------- ";
+                establecer_color(10);
+                cout << A[j] << "\n";
+                establecer_color(7);
+                hayArista = true;
+            }
+        }
+    }
+    if (!hayArista) cout << "  (no hay aristas - todos los elementos son incomparables)\n";
+    cout << "\n";
 }
 
-void pantallaBienvenida() {
-    establecer_color(10);
+void imprimirTituloOrdenParcial(int color) {
+    establecer_color(color);
     cout << " _____   ____    ____    ____    __  __     \n";
     cout << "/\\  __`\\/\\  _`\\ /\\  _`\\ /\\  _`\\ /\\ \\/\\ \\    \n";
     cout << "\\ \\ \\/\\ \\ \\ \\L\\ \\ \\ \\/\\ \\ \\ \\L\\_\\ \\ `\\\\ \\   \n";
@@ -331,11 +451,28 @@ void pantallaBienvenida() {
     cout << "    \\/_/    \\/_/\\/_/\\/_/\\/ /\\/___/  \\/_____/ \\/_/\\/_/\\/___/ \n";
     cout << "\n";
     establecer_color(7);
+}
+
+void animarTituloOrdenParcial() {
+    int colores[] = { 1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14, 15 };
+    for (int i = 0; i < 15; i++)
+    {
+        int color = colores[rand() % 12];
+        mover_cursor(0, 0);
+        imprimirTituloOrdenParcial(color);
+        Sleep(57);
+    }
+}
+
+void pantallaBienvenida() {
+    animarTituloOrdenParcial();
+    establecer_color(7);
     cout << "  ============================================================\n";
     cout << "                   TB1  -  ORDEN PARCIAL                      \n";
     cout << "  ============================================================\n";
     cout << "\n";
     cout << "  1. Empezar orden parcial\n";
-    cout << "  2. Salir\n";
+    cout << "  2. Creditos\n";
+    cout << "  3. Salir\n";
     cout << "\n  Opcion: ";
 }

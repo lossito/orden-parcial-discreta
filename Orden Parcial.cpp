@@ -2,6 +2,7 @@
 #include <conio.h>
 
 int main() {
+    srand(time(NULL));
     configurarventana();
     int opc = 0;
 
@@ -22,7 +23,7 @@ int main() {
             vector<int> aux = generarDivisores(n);
             vector<int> A = crearSubconjunto(aux);
 
-            //pantalla 1: divisores, subconjunto y pares
+            // pantalla 1: divisores, subconjunto y pares
             system("cls");
             imprimirDivisores(aux, n);
             imprimirSubconjunto(A);
@@ -36,10 +37,9 @@ int main() {
             //mostrarMatrizCuadrada(A);
             //_getch();
 
-            // pantalla 3: propiedades y hasse
+            // pantalla 3: propiedades + hasse (el hasse sale desde adentro al presionar enter)
             system("cls");
             propiedadesOrdenParcial(A);
-            mostrarHasse(A);
             _getch();
             break;
         }
