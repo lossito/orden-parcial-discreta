@@ -2,69 +2,54 @@
 #include <conio.h>
 
 int main() {
+	configurarventana();
+    int opc = 0;
 
-	int opc = 0;
+    while (opc != 2) {
+        system("cls");
+        pantallaBienvenida();
+        cin >> opc;
 
-	while (opc != 2)
-	{
-		system("cls");
+        switch (opc) {
 
-		cout << "--Bienvenido al mvp del tb1--\n";
-		cout << "1. Empezar orden parcial\n";
-		cout << "2. Salir\n";
-		cout << "Opcion: ";
-		cin >> opc;
+        case 1: {
+            system("cls");
+            int n = 0;
 
-		switch (opc) {
+            cout << "Ingrese un numero entero: ";
+            cin >> n;
 
-		case 1: {
-			system("cls");
-			int n = 0;
+            vector<int> aux = generarDivisores(n);
+            vector<int> A = crearSubconjunto(aux);
 
-			cout << "Ingrese un numero entero: ";
-			cin >> n;
+            //pantalla 1: divisores, subconjunto y pares
+            system("cls");
+            imprimirDivisores(aux, n);
+            imprimirSubconjunto(A);
+            relacionDivisibilidad(A);
+            _getch();
 
-			vector<int> aux = generarDivisores(n);
+            // pantalla 2: matrices
+            system("cls");
+            imprimirMatrizRelacion(A);
+            imprimirMatrizRelacionTranspuesta(A);
+            mostrarMatrizCuadrada(A);
+            _getch();
 
-			imprimirDivisores(aux, n);
-
-			vector<int> A = crearSubconjunto(aux);
-
-			imprimirSubconjunto(A);
-			mover_cursor(60, 0);
-			relacionDivisibilidad(A);
-
-			imprimirMatrizRelacion(A);
-			
-			_getch();
-			
-			system("cls");
-			propiedadesOrdenParcial(A);
-			mostrarHasse(A);
-			imprimirMatrizRelacionTranspuesta(A);
-			_getch();
-
-			cout << "\n";
-
-			break;
-		}
-
-		case 2: {
-
-			break;
-		}
-
-		default: {
-
-			cout << "Opcion no validaa\n";
-
-			_getch();
-
-			break;
-		}
-
-		}
-	}
-
-	return 0;
+            // pantalla 3: propiedades y hasse
+            system("cls");
+            propiedadesOrdenParcial(A);
+            mostrarHasse(A);
+            _getch();
+            break;
+        }
+        case 2:
+            break;
+        default:
+            cout << "Opcion no valida\n";
+            _getch();
+            break;
+        }
+    }
+    return 0;
 }
