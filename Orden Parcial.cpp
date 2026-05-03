@@ -2,7 +2,7 @@
 #include <conio.h>
 
 int main() {
-	configurarventana();
+    configurarventana();
     int opc = 0;
 
     while (opc != 2) {
@@ -30,11 +30,11 @@ int main() {
             _getch();
 
             // pantalla 2: matrices
-            system("cls");
-            imprimirMatrizRelacion(A);
-            imprimirMatrizRelacionTranspuesta(A);
-            mostrarMatrizCuadrada(A);
-            _getch();
+            //system("cls");
+            //imprimirMatrizRelacion(A);
+            //imprimirMatrizRelacionTranspuesta(A);
+            //mostrarMatrizCuadrada(A);
+            //_getch();
 
             // pantalla 3: propiedades y hasse
             system("cls");
