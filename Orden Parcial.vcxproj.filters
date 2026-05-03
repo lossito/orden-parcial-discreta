@@ -20,10 +20,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="operaciones.h">
+    <ClInclude Include="Utilidades.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilidades.h">
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Impresion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Propiedades.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hasse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Divisores.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
