@@ -6,11 +6,6 @@
 #include "Utilidades.h"
 using namespace std;
 
-// ============================================================
-//  IMPRESION EN CONSOLA
-//  Cada funcion tiene una unica responsabilidad: mostrar algo.
-// ============================================================
-
 // Imprime el conjunto de divisores: D(n) = { 1, 2, ... }
 void imprimirDivisores(const vector<int>& divisores, int n) {
     cout << "D(" << n << ") = { ";
@@ -21,10 +16,20 @@ void imprimirDivisores(const vector<int>& divisores, int n) {
     cout << " }\n";
 }
 
+void imprimirCredits() {
+    system("cls");
+    cout << "-Piero Andre Burgos Duncan\n";
+    cout << "-Jose Francisco Panuera Villanueva\n";
+    cout << "-Yamil Saha Rojas Romani\n";
+    cout << "-Robert Francisco Ramos Poma\n";
+    cout << "-Gabriel Eduardo Dean Parodi (Nazca)\n";
+    cout << "-Carlos Andres Espejo Cordova\n";
+}
+
 // Imprime el subconjunto A seleccionado por el usuario
 void imprimirSubconjunto(const vector<int>& A) {
     cout << "\n__________________\n";
-    cout << "Subconjunto A = { ";
+    cout << "Subconjunto D = { ";
     for (int i = 0; i < (int)A.size(); i++) {
         cout << A[i];
         if (i != (int)A.size() - 1) cout << ", ";

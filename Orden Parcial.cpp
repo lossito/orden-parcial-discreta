@@ -26,7 +26,8 @@ int main() {
             break;
 
         case 2:
-            // Opcion Salir: el bucle termina
+            imprimirCredits();
+            _getch();
             break;
 
         case 3:

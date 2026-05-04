@@ -23,7 +23,7 @@ vector<int> crearSubconjunto(const vector<int>& divisores) {
     vector<int> A;
     int respuesta;
 
-    cout << "\nArma el subconjunto A:\n";
+    cout << "\nArma el subconjunto D:\n";
     for (int div : divisores) {
         cout << "Agregar " << div << "? (1 = si / 2 = no): ";
         cin >> respuesta;
