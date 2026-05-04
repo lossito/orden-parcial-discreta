@@ -135,6 +135,7 @@
     <ClInclude Include="Impresion.h" />
     <ClInclude Include="Matrices.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="OrdenP.h" />
     <ClInclude Include="Propiedades.h" />
     <ClInclude Include="Utilidades.h" />
   </ItemGroup>

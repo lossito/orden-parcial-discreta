@@ -41,5 +41,8 @@
     <ClInclude Include="Divisores.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OrdenP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

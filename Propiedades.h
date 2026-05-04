@@ -33,7 +33,7 @@ void mostrarReflexividad(const vector<int>& A, const vector<vector<int>>& M) {
 
     // Muestra la matriz M con la diagonal coloreada en verde
     imprimirMatrizConColor(
-        "\nMatriz M (1 si a divide a b):", "",
+        "\nMatriz de D:", "",
         A, M,
         /*colorDiagonal=*/3,   // verde: resalta (a,a)
         /*colorFuera=*/7
@@ -46,8 +46,7 @@ void mostrarReflexividad(const vector<int>& A, const vector<vector<int>>& M) {
 // Verifica y muestra la propiedad ANTISIMETRICA
 // R es antisimetrica si (a,b) en R y (b,a) en R => a == b.
 // ------------------------------------------------------------------
-void mostrarAntisimetria(const vector<int>& A,
-    const vector<vector<int>>& MT) {
+void mostrarAntisimetria(const vector<int>& A, const vector<vector<int>>& M, const vector<vector<int>>& MT) {
     int n = A.size();
 
     cout << "2. RELACION ANTISIMETRICA\n";
@@ -60,11 +59,12 @@ void mostrarAntisimetria(const vector<int>& A,
             if (A[i] == A[j]) continue;
             if (A[j] % A[i] == 0 && A[i] % A[j] == 0) {
                 antisim = false;
-                cout << "  (" << A[i] << "," << A[j] << ") y ("
-                    << A[j] << "," << A[i] << ") rompen la regla\n";
+                cout << "  (" << A[i] << "," << A[j] << ") esta en R y ("
+                    << A[j] << "," << A[i] << ") tambien lo esta. rompen la regla\n";
             }
             else if (A[j] % A[i] == 0) {
-                cout << "  (" << A[i] << "," << A[j] << ") en R\n";
+                cout << "  (" << A[i] << "," << A[j] << ") esta en R, pero ("
+                    << A[j] << "," << A[i] << ") no esta en R.\n";
             }
         }
     }
@@ -73,25 +73,28 @@ void mostrarAntisimetria(const vector<int>& A,
     else { establecer_color(4);  cout << "=> La relacion NO es antisimetrica.\n"; }
     establecer_color(7);
 
+    imprimirMatrizConColor(
+        "\nMatriz de D:", "",
+        A, M,
+        /*colorDiagonal=*/7,  // verde: diagonal
+        /*colorFuera=*/5      // normal: fuera de diagonal
+    );
+
     // Muestra la transpuesta: los 1s fuera de diagonal en amarillo
     imprimirMatrizConColor(
-        "\nMatriz Transpuesta M^T:", "",
+        "\nMatriz transpuesta de D:", "",
         A, MT,
         /*colorDiagonal=*/7,   // diagonal: sin color especial
         /*colorFuera=*/5       // amarillo: resalta transposicion
     );
 
+    cout << "Para que sea antisimetrica, la interseccion entre la matriz original D" << endl; 
+    cout << "y su transpuesta, debe estar incluida solo la diagonal de la matriz D\n";
+
     cout << "\n----------------------------------------------\n\n";
 }
 
-// ------------------------------------------------------------------
-// Verifica y muestra la propiedad TRANSITIVA
-// R es transitiva si (a,b) en R y (b,c) en R => (a,c) en R.
-// Se verifica con M^2: si M2[i][j]=1 entonces M[i][j] debe ser 1.
-// ------------------------------------------------------------------
-void mostrarTransitividad(const vector<int>& A,
-    const vector<vector<int>>& M,
-    const vector<vector<int>>& M2) {
+void mostrarTransitividad(const vector<int>& A, const vector<vector<int>>& M, const vector<vector<int>>& M2) {
     int n = A.size();
 
     cout << "3. RELACION TRANSITIVA\n";
@@ -103,10 +106,11 @@ void mostrarTransitividad(const vector<int>& A,
         for (int j = 0; j < n; j++)
             for (int k = 0; k < n; k++)
                 if (M[i][j] == 1 && M[j][k] == 1)
-                    cout << "  " << A[i] << "|" << A[j]
-                    << " y " << A[j] << "|" << A[k]
-                    << " => " << A[i] << "|" << A[k] << "\n";
-
+                    if (i != j && j != k && i != k) {
+                        cout << "  " << A[i] << "|" << A[j]
+                            << " y " << A[j] << "|" << A[k]
+                            << " => " << A[i] << "|" << A[k] << "\n";
+                    }
     // Comprueba si M2 esta contenida en M
     bool transitiva = true;
     for (int i = 0; i < n; i++)
@@ -118,16 +122,23 @@ void mostrarTransitividad(const vector<int>& A,
     else { establecer_color(4);  cout << "=> La relacion NO es transitiva.\n"; }
     establecer_color(7);
 
+    imprimirMatrizConColor(
+        "\nMatriz de D:", "",
+        A, M,
+        /*colorDiagonal=*/7,  // verde: diagonal
+        /*colorFuera=*/9      // normal: fuera de diagonal
+    );
+
     // Muestra M^2 sin colores especiales
     imprimirMatrizConColor(
-        "\nMatriz M2 (M al cuadrado):", "",
+        "\nProducto booleando de la Matriz (MxM):", "",
         A, M2,
         /*colorDiagonal=*/7,
-        /*colorFuera=*/7
+        /*colorFuera=*/9
     );
     cout << (transitiva
-        ? "=> M2 contenida en M -> ES transitiva\n"
-        : "=> M2 NO contenida en M -> NO es transitiva\n");
+        ? "=> M2 no pierde 0 de M -> ES transitiva\n"
+        : "=> M2 pierde 0 de M -> NO es transitiva\n");
 
     cout << "\n----------------------------------------------\n\n";
 }
@@ -139,6 +150,6 @@ void mostrarTransitividad(const vector<int>& A,
 void mostrarConclusionOrdenParcial() {
     cout << "4. ORDEN PARCIAL\n";
     cout << "Como cumple reflexividad, antisimetria y transitividad,\n";
-    cout << "la relacion de divisibilidad ES un orden parcial.\n\n";
+    cout << "la relacion de divisibilidad ES de orden parcial.\n\n";
     cout << "Presiona una tecla para ver el Diagrama de Hasse...\n";
 }

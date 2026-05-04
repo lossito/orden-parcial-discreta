@@ -6,20 +6,38 @@
 #include "Impresion.h"
 using namespace std;
 
-// ============================================================
-//  DIAGRAMA DE HASSE
-//  Construye el diagrama paso a paso usando tres matrices:
-//    M1 = M sin diagonal (relacion irreflexiva)
-//    M2 = M1 x M1       (pares con intermediario)
-//    M3 = M1 - M2        (aristas directas = el Hasse)
-// ============================================================
+void imprimirConexionesHasse(const vector<int>& A, const vector<vector<int>>& M3) {
+    int n = A.size();
+    bool primero = true;
+
+    cout << "Conexiones que se conservan para el diagrama de Hasse:\n";
+    cout << "H = { ";
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (M3[i][j] == 1) {
+                if (!primero) {
+                    cout << ", ";
+                }
+                cout << "(" << A[i] << "," << A[j] << ")";
+                primero = false;
+            }
+        }
+    }
+
+    if (primero) {
+        cout << "no hay conexiones directas";
+    }
+    cout << " }\n";
+}
 
 // Imprime el diagrama de Hasse final a partir de la matriz de aristas M3
 void imprimirDiagramaHasse(const vector<int>& A,
     const vector<vector<int>>& M3) {
     int n = A.size();
-    cout << "========== DIAGRAMA DE HASSE ==========\n";
-    cout << "Relaciones directas (sin intermediarios), a ------- b:\n\n";
+    cout << "========== DIAGRAMA DE HASSE ===========\n\n";
+    imprimirConexionesHasse(A, M3);
+    cout << "\nRelaciones directas (de inferior a superior), a ------- b:\n\n";
 
     bool hayArista = false;
     for (int i = 0; i < n; i++) {
@@ -51,7 +69,7 @@ void mostrarHasse(const vector<int>& A) {
     vector<vector<int>> M3 = construirMatrizHasse(M1, M2);
 
     system("cls");
-    cout << "========== DIAGRAMA DE HASSE (paso a paso) ==========\n\n";
+    cout << "========== DIAGRAMA DE HASSE ==========\n\n";
 
     // Paso 1: M1 - se eliminan los pares (a,a)
     imprimirMatrizConColor(
@@ -65,16 +83,16 @@ void mostrarHasse(const vector<int>& A) {
     // Paso 2: M2 = M1 x M1 - detecta pares con intermediario
     imprimirMatrizConColor(
         "Paso 2 - Matriz M2 = M1 x M1 (composicion):",
-        "Detecta las relaciones cubiertas por un paso intermedio.",
+        "Detecta las relaciones cubiertas por un elemento intermedio.",
         A, M2,
-        /*colorDiagonal=*/5,
-        /*colorFuera=*/5
+        /*colorDiagonal=*/3,
+        /*colorFuera=*/3
     );
 
     // Paso 3: M3 = M1 - M2 - solo aristas directas del Hasse
     imprimirMatrizConColor(
         "Paso 3 - Matriz M3 = M1 - M2 (aristas directas):",
-        "Solo quedan los pares directos sin intermediarios: estas son las aristas del Hasse.",
+        "Solo quedan los pares directos sin intermediarios, las cuales son las aristas del Hasse.",
         A, M3,
         /*colorDiagonal=*/10,
         /*colorFuera=*/10
