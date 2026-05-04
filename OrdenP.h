@@ -5,11 +5,12 @@
 #include "Hasse.h"
 void ejecutarOrdenParcial() {
     system("cls");
-
-    // --- Entrada de datos ---
     int n = 0;
-    cout << "Ingrese un numero entero: ";
-    cin >> n;
+    do
+    {
+        cout << "Ingrese un numero natural: ";
+        cin >> n;
+    } while (n <= 0);
 
     vector<int> divisores = generarDivisores(n);
     vector<int> A = crearSubconjunto(divisores);
