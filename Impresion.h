@@ -6,7 +6,6 @@
 #include "Utilidades.h"
 using namespace std;
 
-// Imprime el conjunto de divisores: D(n) = { 1, 2, ... }
 void imprimirDivisores(const vector<int>& divisores, int n) {
     cout << "D(" << n << ") = { ";
     for (int i = 0; i < (int)divisores.size(); i++) {
@@ -26,7 +25,6 @@ void imprimirCredits() {
     cout << "-Carlos Andres Espejo Cordova\n";
 }
 
-// Imprime el subconjunto A seleccionado por el usuario
 void imprimirSubconjunto(const vector<int>& A) {
     cout << "\n__________________\n";
     cout << "Subconjunto D = { ";
@@ -38,7 +36,6 @@ void imprimirSubconjunto(const vector<int>& A) {
     cout << "__________________\n";
 }
 
-// Imprime todos los pares (a, b) de la relacion de divisibilidad
 void imprimirParesRelacion(const vector<int>& A) {
     cout << "\nRelacion (pares), a|b (a divide a b):\n";
     for (int i = 0; i < (int)A.size(); i++)
@@ -48,7 +45,6 @@ void imprimirParesRelacion(const vector<int>& A) {
     cout << "__________________\n";
 }
 
-// Imprime el encabezado de una matriz (fila de etiquetas y linea separadora)
 void imprimirEncabezadoMatriz(const vector<int>& A) {
     int n = A.size();
     cout << setw(5) << " ";
@@ -58,9 +54,7 @@ void imprimirEncabezadoMatriz(const vector<int>& A) {
     cout << "\n";
 }
 
-// Imprime una matriz generica con un color opcional para los 1s
-// colorDiagonal : color para los 1s en la diagonal principal
-// colorFuera    : color para los 1s fuera de la diagonal (-1 = sin color especial)
+
 void imprimirMatrizConColor(const string& titulo, const string& descripcion,
     const vector<int>& A,
     const vector<vector<int>>& Mat,
@@ -89,7 +83,6 @@ void imprimirMatrizConColor(const string& titulo, const string& descripcion,
     cout << "\n";
 }
 
-// Imprime el banner ASCII del titulo "ORDEN PARCIAL" con el color indicado
 void imprimirTituloOrdenParcial(int color) {
     establecer_color(color);
     cout << " _____   ____    ____    ____    __  __     \n";

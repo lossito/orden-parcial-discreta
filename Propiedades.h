@@ -6,16 +6,7 @@
 #include "Impresion.h"
 using namespace std;
 
-// ============================================================
-//  PROPIEDADES DE ORDEN PARCIAL
-//  Cada funcion verifica UNA propiedad y la explica en pantalla.
-// ============================================================
 
-// ------------------------------------------------------------------
-// Verifica y muestra la propiedad REFLEXIVA
-// Una relacion es reflexiva si (a,a) pertenece a R para todo a en A.
-// En divisibilidad: a|a siempre es verdadero => siempre reflexiva.
-// ------------------------------------------------------------------
 void mostrarReflexividad(const vector<int>& A, const vector<vector<int>>& M) {
     int n = A.size();
 
@@ -31,21 +22,18 @@ void mostrarReflexividad(const vector<int>& A, const vector<vector<int>>& M) {
     cout << "=> La relacion ES reflexiva.\n";
     establecer_color(7);
 
-    // Muestra la matriz M con la diagonal coloreada en verde
+   
     imprimirMatrizConColor(
         "\nMatriz de D:", "",
         A, M,
-        /*colorDiagonal=*/3,   // verde: resalta (a,a)
-        /*colorFuera=*/7
+        3, 
+        7
     );
 
     cout << "\n----------------------------------------------\n\n";
 }
 
-// ------------------------------------------------------------------
-// Verifica y muestra la propiedad ANTISIMETRICA
-// R es antisimetrica si (a,b) en R y (b,a) en R => a == b.
-// ------------------------------------------------------------------
+
 void mostrarAntisimetria(const vector<int>& A, const vector<vector<int>>& M, const vector<vector<int>>& MT) {
     int n = A.size();
 
@@ -76,16 +64,16 @@ void mostrarAntisimetria(const vector<int>& A, const vector<vector<int>>& M, con
     imprimirMatrizConColor(
         "\nMatriz de D:", "",
         A, M,
-        /*colorDiagonal=*/7,  // verde: diagonal
-        /*colorFuera=*/5      // normal: fuera de diagonal
+        7, 
+        5     
     );
 
-    // Muestra la transpuesta: los 1s fuera de diagonal en amarillo
+
     imprimirMatrizConColor(
         "\nMatriz transpuesta de D:", "",
         A, MT,
-        /*colorDiagonal=*/7,   // diagonal: sin color especial
-        /*colorFuera=*/5       // amarillo: resalta transposicion
+        7,   
+        5       
     );
 
     cout << "Para que sea antisimetrica, la interseccion entre la matriz original D" << endl; 
@@ -101,7 +89,6 @@ void mostrarTransitividad(const vector<int>& A, const vector<vector<int>>& M, co
     cout << "R es transitiva si cuando (a,b) y (b,c) estan en R,\n";
     cout << "entonces (a,c) tambien esta en R.\n\n";
 
-    // Muestra cada cadena transitiva encontrada
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
             for (int k = 0; k < n; k++)
@@ -111,7 +98,7 @@ void mostrarTransitividad(const vector<int>& A, const vector<vector<int>>& M, co
                             << " y " << A[j] << "|" << A[k]
                             << " => " << A[i] << "|" << A[k] << "\n";
                     }
-    // Comprueba si M2 esta contenida en M
+
     bool transitiva = true;
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
@@ -125,16 +112,16 @@ void mostrarTransitividad(const vector<int>& A, const vector<vector<int>>& M, co
     imprimirMatrizConColor(
         "\nMatriz de D:", "",
         A, M,
-        /*colorDiagonal=*/7,  // verde: diagonal
-        /*colorFuera=*/9      // normal: fuera de diagonal
+        7,  
+        9      
     );
 
-    // Muestra M^2 sin colores especiales
+   
     imprimirMatrizConColor(
         "\nProducto booleando de la Matriz (MxM):", "",
         A, M2,
-        /*colorDiagonal=*/7,
-        /*colorFuera=*/9
+        7,
+        9
     );
     cout << (transitiva
         ? "=> M2 no pierde 0 de M -> ES transitiva\n"
@@ -143,10 +130,7 @@ void mostrarTransitividad(const vector<int>& A, const vector<vector<int>>& M, co
     cout << "\n----------------------------------------------\n\n";
 }
 
-// ------------------------------------------------------------------
-// Muestra la conclusion de orden parcial y espera una tecla
-// para continuar al diagrama de Hasse.
-// ------------------------------------------------------------------
+
 void mostrarConclusionOrdenParcial() {
     cout << "4. ORDEN PARCIAL\n";
     cout << "Como cumple reflexividad, antisimetria y transitividad,\n";

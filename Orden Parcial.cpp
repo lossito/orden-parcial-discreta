@@ -18,7 +18,7 @@ int main() {
     while (opcion != 3) {
         system("cls");
         pantallaBienvenida();
-        cin >> opcion;
+        opcion = leerEnteroPositivo("");
 
         switch (opcion) {
         case 1:

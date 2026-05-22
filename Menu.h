@@ -5,12 +5,7 @@
 #include "Impresion.h"
 using namespace std;
 
-// ============================================================
-//  MENU Y PANTALLAS
-//  Animacion del titulo, pantalla de bienvenida y creditos.
-// ============================================================
 
-// Anima el titulo mostrando el banner en colores aleatorios
 void animarTituloOrdenParcial() {
     int colores[] = { 1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14, 15 };
     for (int i = 0; i < 15; i++) {
@@ -21,7 +16,6 @@ void animarTituloOrdenParcial() {
     }
 }
 
-// Muestra la pantalla de bienvenida con el menu principal
 void pantallaBienvenida() {
     animarTituloOrdenParcial();
     establecer_color(7);
